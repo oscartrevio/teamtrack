@@ -26,7 +26,7 @@ const openRunde = localFont({
       style: 'normal',
     },
   ],
-  variable: '--font-open-runde',
+  variable: '--font-openrunde',
 });
 
 const inter = Inter({

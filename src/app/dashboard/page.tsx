@@ -13,44 +13,57 @@ import {
   SidebarProvider,
   SidebarTrigger,
 } from '@/components/ui/sidebar';
+import {
+  ResizableHandle,
+  ResizablePanel,
+  ResizablePanelGroup,
+} from '@/components/ui/resizable';
+import { cn } from '@/lib/utils';
+import { DocumentSidebar } from '../../components/document-sidebar';
 
 export default function Page() {
   return (
-    <SidebarProvider
-      style={
-        {
-          '--sidebar-width': '300px',
-        } as React.CSSProperties
-      }
-    >
+    <SidebarProvider>
       <AppSidebar />
-      <SidebarInset>
-        <header className='bg-background sticky top-0 flex shrink-0 items-center gap-2 border-b p-4'>
-          <SidebarTrigger className='-ml-1' />
-          <Separator
-            orientation='vertical'
-            className='mr-2 data-[orientation=vertical]:h-4'
-          />
-          <Breadcrumb>
-            <BreadcrumbList>
-              <BreadcrumbItem className='hidden md:block'>
-                <BreadcrumbLink href='#'>All Inboxes</BreadcrumbLink>
-              </BreadcrumbItem>
-              <BreadcrumbSeparator className='hidden md:block' />
-              <BreadcrumbItem>
-                <BreadcrumbPage>Inbox</BreadcrumbPage>
-              </BreadcrumbItem>
-            </BreadcrumbList>
-          </Breadcrumb>
-        </header>
-        <div className='flex flex-1 flex-col gap-4 p-4'>
-          {Array.from({ length: 24 }).map((_, index) => (
-            <div
-              key={index}
-              className='bg-muted/50 aspect-video h-12 w-full rounded-lg'
-            />
-          ))}
-        </div>
+      <SidebarInset className=''>
+        <ResizablePanelGroup direction='horizontal'>
+          <ResizablePanel
+            defaultSize={30}
+            minSize={30}
+            maxSize={40}
+            className={cn(
+              'bg-white w-fit rounded-2xl border border-[#E7E7E7] overflow-y-scroll'
+            )}
+          >
+            <header className='flex h-12 shrink-0 items-center gap-2'>
+              <div className='flex items-center gap-2 px-4'>
+                <SidebarTrigger className='-ml-1' />
+                <Separator
+                  orientation='vertical'
+                  className='mr-2 data-[orientation=vertical]:h-4'
+                />
+                {/* <Breadcrumb>
+                  <BreadcrumbList>
+                    <BreadcrumbItem className='hidden md:block'>
+                      <BreadcrumbLink href='#'>
+                        Building Your Application
+                      </BreadcrumbLink>
+                    </BreadcrumbItem>
+                    <BreadcrumbSeparator className='hidden md:block' />
+                    <BreadcrumbItem>
+                      <BreadcrumbPage>Data Fetching</BreadcrumbPage>
+                    </BreadcrumbItem>
+                  </BreadcrumbList>
+                </Breadcrumb> */}
+              </div>
+            </header>
+            <DocumentSidebar />
+          </ResizablePanel>
+          <ResizableHandle className='m-0.5 hidden opacity-0 md:block' />
+          <ResizablePanel className='bg-white w-fit rounded-2xl border border-[#E7E7E7]'>
+            Two
+          </ResizablePanel>
+        </ResizablePanelGroup>
       </SidebarInset>
     </SidebarProvider>
   );
