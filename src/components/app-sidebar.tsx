@@ -33,6 +33,7 @@ import {
   SidebarMenu,
   SidebarMenuButton,
   SidebarMenuItem,
+  SidebarRail,
 } from '@/components/ui/sidebar';
 import { color } from 'motion/react';
 import { TeamSwitcher } from './team-switcher';
@@ -41,9 +42,9 @@ const iconSize = 16; // '1em'
 
 const data = {
   user: {
-    name: 'shadcn',
-    email: 'm@example.com',
-    avatar: '/avatars/shadcn.jpg',
+    name: 'Oscar Treviño',
+    email: 'oscar@example.com',
+    avatar: 'https://avatar.vercel.sh/oscart',
   },
   teams: [
     {
@@ -75,20 +76,20 @@ const data = {
     },
     {
       title: 'Home',
-      url: '#',
+      url: '/home',
       icon: Home,
       isActive: true,
     },
     {
       title: 'Calls',
-      url: '#',
+      url: '/calls',
       icon: Inbox,
       badge: '10',
     },
   ],
   navSecondary: [
     {
-      title: 'Support',
+      title: 'Ayuda',
       url: '#',
       icon: LifeBuoy,
     },
@@ -147,6 +148,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
       <SidebarFooter>
         <NavUser user={data.user} />
       </SidebarFooter>
+      <SidebarRail />
     </Sidebar>
   );
 }

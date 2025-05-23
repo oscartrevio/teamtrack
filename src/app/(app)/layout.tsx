@@ -6,8 +6,8 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
     <>
       <SidebarProvider>
         <AppSidebar />
-        <SidebarInset>
-          <div>{children}</div>
+        <SidebarInset className='overflow-hidden max-h-screen'>
+          {children}
         </SidebarInset>
       </SidebarProvider>
     </>

@@ -375,7 +375,7 @@ export function DocumentSidebar({
   sections = defaultSections,
 }: DocumentSidebarProps) {
   return (
-    <div className='flex flex-col h-full overflow-y-auto'>
+    <div className='flex flex-col h-full w-full overflow-y-auto'>
       <div className='flex-1 overflow-y-auto '>
         {sections.map((section, sectionIndex) => (
           <div key={sectionIndex} className='px-2 py-3'>
