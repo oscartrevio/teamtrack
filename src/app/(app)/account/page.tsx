@@ -63,7 +63,7 @@ export default function AccountPage() {
               oscartrevio
             </p>
             <p className='line-clamp-1 h-6 w-full overflow-hidden text-start leading-[24px] text-neutral-600'>
-              Lens Profile
+              User Profile
             </p>
           </div>
         </button>

@@ -1,25 +1,21 @@
 'use client';
 
-import * as React from 'react';
 import {
   AudioWaveform,
-  BookOpen,
-  Bot,
+  Calendar,
   Command,
-  Frame,
   Home,
   Inbox,
   LifeBuoy,
-  Map,
-  PanelTop,
-  PieChart,
   Search,
   Send,
   Settings2,
   Sparkles,
-  SquareTerminal,
 } from 'lucide-react';
-
+import { FaCompass } from 'react-icons/fa';
+import { FaMap } from 'react-icons/fa6';
+import { BsFillMegaphoneFill } from 'react-icons/bs';
+import { usePathname } from 'next/navigation';
 import { NavMain } from '@/components/nav-main';
 import { NavProjects } from '@/components/nav-projects';
 import { NavSecondary } from '@/components/nav-secondary';
@@ -35,7 +31,6 @@ import {
   SidebarMenuItem,
   SidebarRail,
 } from '@/components/ui/sidebar';
-import { color } from 'motion/react';
 import { TeamSwitcher } from './team-switcher';
 
 const iconSize = 16; // '1em'
@@ -78,13 +73,21 @@ const data = {
       title: 'Home',
       url: '/home',
       icon: Home,
-      isActive: true,
     },
     {
       title: 'Calls',
       url: '/calls',
       icon: Inbox,
-      badge: '10',
+    },
+    {
+      title: 'Calendar',
+      url: '/calendar',
+      icon: Calendar,
+    },
+    {
+      title: 'Account',
+      url: '/account',
+      icon: Settings2,
     },
   ],
   navSecondary: [
@@ -103,50 +106,63 @@ const data = {
     {
       name: 'Design Website',
       url: '#',
-      icon: PanelTop,
+      icon: FaCompass,
+      color: 'fill-blue',
     },
     {
       name: 'Marketing Campaign',
       url: '#',
-      icon: PieChart,
+      icon: BsFillMegaphoneFill,
+      color: 'fill-red',
     },
     {
       name: 'Map Implementation',
       url: '#',
-      icon: Map,
+      icon: FaMap,
+      color: 'fill-green',
     },
   ],
 };
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
+  const pathname = usePathname();
+
+  // Create a copy of the data to add active state based on current URL
+  const navData = {
+    ...data,
+    navMain: data.navMain.map((item) => ({
+      ...item,
+      isActive: pathname.startsWith(item.url) && item.url !== '#',
+    })),
+    projects: data.projects.map((item) => ({
+      ...item,
+      isActive: pathname.startsWith(item.url) && item.url !== '#',
+    })),
+    navSecondary: data.navSecondary.map((item) => ({
+      ...item,
+      isActive: pathname.startsWith(item.url) && item.url !== '#',
+    })),
+  };
+
   return (
     <Sidebar variant='inset' collapsible='icon' {...props}>
       <SidebarHeader>
         <SidebarMenu>
           <SidebarMenuItem>
             <SidebarMenuButton size='lg' asChild>
-              {/* <a href='#'>
-                <div className='bg-sidebar-primary text-sidebar-primary-foreground flex aspect-square size-8 items-center justify-center rounded-lg'>
-                  <Command className='size-4' />
-                </div>
-                <div className='grid flex-1 text-left text-sm leading-tight'>
-                  <span className='truncate font-medium'>Acme Inc</span>
-                  <span className='truncate text-xs'>Enterprise</span>
-                </div>
-              </a> */}
-              <TeamSwitcher teams={data.teams} />
+              <TeamSwitcher teams={navData.teams} />
             </SidebarMenuButton>
           </SidebarMenuItem>
         </SidebarMenu>
       </SidebarHeader>
       <SidebarContent>
-        <NavMain items={data.navMain} />
+        <NavMain items={navData.navMain} />
         <Separator orientation='horizontal' />
-        <NavProjects projects={data.projects} />
-        <NavSecondary items={data.navSecondary} className='mt-auto' />
+        <NavProjects projects={navData.projects} />
+        <NavSecondary items={navData.navSecondary} className='mt-auto' />
       </SidebarContent>
       <SidebarFooter>
-        <NavUser user={data.user} />
+        <NavUser user={navData.user} />
       </SidebarFooter>
       <SidebarRail />
     </Sidebar>

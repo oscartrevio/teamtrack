@@ -202,6 +202,75 @@ const defaultSections: Section[] = [
   },
 ];
 
+export function DocumentSidebar({
+  sections = defaultSections,
+}: DocumentSidebarProps) {
+  return (
+    <div className='flex flex-col h-full w-full overflow-y-auto'>
+      <div className='flex-1 overflow-y-auto '>
+        {sections.map((section, sectionIndex) => (
+          <div key={sectionIndex} className='px-2 py-3'>
+            <h3 className='text-xs font-semibold text-gray-400 uppercase mb-2 px-2'>
+              {section.title}
+            </h3>
+            <ul className='space-y-1'>
+              {section.items.map((item, itemIndex) => (
+                <li
+                  key={itemIndex}
+                  className='group px-2 py-2 rounded-md hover:bg-gray-100 transition-colors cursor-pointer'
+                >
+                  <div className='flex items-center justify-between'>
+                    <div className='flex items-center min-w-0'>
+                      <div className='shrink-0'>{item.icon}</div>
+                      <span className='text-sm text-gray-700 group-hover:text-gray-900 truncate'>
+                        {item.label}
+                      </span>
+                    </div>
+                    <div className='flex items-center gap-2 ml-2 shrink-0'>
+                      <CallStatusIndicator
+                        completed={item.completed}
+                        unread={item.unread}
+                      />
+                      <span className='text-xs text-gray-500'>{item.date}</span>
+                    </div>
+                  </div>
+
+                  <div className='ml-7 mt-1 flex items-center justify-between'>
+                    <div className='flex items-center gap-2'>
+                      {item.participants && (
+                        <ParticipantAvatars participants={item.participants} />
+                      )}
+                      {item.category && (
+                        <CategoryBadge category={item.category} />
+                      )}
+                    </div>
+
+                    <StatusIndicators
+                      priority={item.priority}
+                      hasAttachments={item.hasAttachments}
+                      hasActions={item.hasActions}
+                      hasAlerts={item.hasAlerts}
+                      isFlagged={item.isFlagged}
+                      sentiment={item.sentiment}
+                    />
+                  </div>
+
+                  {item.duration && (
+                    <div className='ml-7 mt-1 text-xs text-gray-500 flex items-center'>
+                      <Clock className='h-3 w-3 mr-1' />
+                      {item.duration}
+                    </div>
+                  )}
+                </li>
+              ))}
+            </ul>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
+
 // Call status indicator component
 const CallStatusIndicator = ({
   completed,
@@ -370,77 +439,3 @@ const ParticipantAvatars = ({ participants }: { participants?: string[] }) => {
     </div>
   );
 };
-
-export function DocumentSidebar({
-  sections = defaultSections,
-}: DocumentSidebarProps) {
-  return (
-    <div className='flex flex-col h-full w-full overflow-y-auto'>
-      <div className='flex-1 overflow-y-auto '>
-        {sections.map((section, sectionIndex) => (
-          <div key={sectionIndex} className='px-2 py-3'>
-            <h3 className='text-xs font-semibold text-gray-400 uppercase mb-2 px-2'>
-              {section.title}
-            </h3>
-            <ul className='space-y-1'>
-              {section.items.map((item, itemIndex) => (
-                <li
-                  key={itemIndex}
-                  className='group px-2 py-2 rounded-md hover:bg-gray-100 transition-colors cursor-pointer'
-                >
-                  <div className='flex items-center justify-between'>
-                    <div className='flex items-center min-w-0'>
-                      <div className='shrink-0'>{item.icon}</div>
-                      <span className='text-sm text-gray-700 group-hover:text-gray-900 truncate'>
-                        {item.label}
-                      </span>
-                      {item.count !== undefined && (
-                        <span className='ml-1 px-1.5 py-0.5 text-xs bg-gray-100 text-gray-600 rounded-full'>
-                          {item.count}
-                        </span>
-                      )}
-                    </div>
-                    <div className='flex items-center gap-2 ml-2 shrink-0'>
-                      <CallStatusIndicator
-                        completed={item.completed}
-                        unread={item.unread}
-                      />
-                      <span className='text-xs text-gray-500'>{item.date}</span>
-                    </div>
-                  </div>
-
-                  <div className='ml-7 mt-1 flex items-center justify-between'>
-                    <div className='flex items-center gap-2'>
-                      {item.participants && (
-                        <ParticipantAvatars participants={item.participants} />
-                      )}
-                      {item.category && (
-                        <CategoryBadge category={item.category} />
-                      )}
-                    </div>
-
-                    <StatusIndicators
-                      priority={item.priority}
-                      hasAttachments={item.hasAttachments}
-                      hasActions={item.hasActions}
-                      hasAlerts={item.hasAlerts}
-                      isFlagged={item.isFlagged}
-                      sentiment={item.sentiment}
-                    />
-                  </div>
-
-                  {item.duration && (
-                    <div className='ml-7 mt-1 text-xs text-gray-500 flex items-center'>
-                      <Clock className='h-3 w-3 mr-1' />
-                      {item.duration}
-                    </div>
-                  )}
-                </li>
-              ))}
-            </ul>
-          </div>
-        ))}
-      </div>
-    </div>
-  );
-}

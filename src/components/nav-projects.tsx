@@ -7,6 +7,8 @@ import {
   Trash2,
   type LucideIcon,
 } from 'lucide-react';
+import Link from 'next/link';
+import { color } from 'motion/react';
 
 import {
   DropdownMenu,
@@ -24,6 +26,7 @@ import {
   SidebarMenuItem,
   useSidebar,
 } from '@/components/ui/sidebar';
+import { cn } from '@/lib/utils';
 
 export function NavProjects({
   projects,
@@ -31,7 +34,9 @@ export function NavProjects({
   projects: {
     name: string;
     url: string;
-    icon: LucideIcon;
+    icon: LucideIcon | React.ElementType;
+    color: string;
+    isActive?: boolean;
   }[];
 }) {
   const { isMobile } = useSidebar();
@@ -44,11 +49,11 @@ export function NavProjects({
       <SidebarMenu>
         {projects.map((item) => (
           <SidebarMenuItem key={item.name}>
-            <SidebarMenuButton asChild>
-              <a href={item.url}>
-                <item.icon />
+            <SidebarMenuButton asChild isActive={item.isActive}>
+              <Link href={item.url}>
+                <item.icon className={item.color} />
                 <span>{item.name}</span>
-              </a>
+              </Link>
             </SidebarMenuButton>
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
@@ -79,12 +84,12 @@ export function NavProjects({
             </DropdownMenu>
           </SidebarMenuItem>
         ))}
-        <SidebarMenuItem>
+        {/* <SidebarMenuItem>
           <SidebarMenuButton>
             <MoreHorizontal />
             <span>More</span>
           </SidebarMenuButton>
-        </SidebarMenuItem>
+        </SidebarMenuItem> */}
       </SidebarMenu>
     </SidebarGroup>
   );
