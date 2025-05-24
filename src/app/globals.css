@@ -6,7 +6,8 @@
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
+  --font-sans: var(--font-inter);
+  --font-openrunde: var(--font-openrunde);
   --font-mono: var(--font-geist-mono);
   --color-sidebar-ring: var(--sidebar-ring);
   --color-sidebar-border: var(--sidebar-border);
@@ -41,6 +42,22 @@
   --radius-md: calc(var(--radius) - 2px);
   --radius-lg: var(--radius);
   --radius-xl: calc(var(--radius) + 4px);
+
+  --color-blue: #00c8ff;
+  --color-purple: #d946ef;
+  --color-green: #34c957;
+  --color-red: #ee4562;
+  --color-orange: #ff3e00;
+
+  --color-neutral-900: #000000;
+  --color-neutral-800: #2c2d30;
+  --color-neutral-700: #64676b;
+  --color-neutral-600: #94999e;
+  --color-neutral-500: #b3b8bd;
+  --color-neutral-400: #cdd0d4;
+  --color-neutral-300: #eef0f2;
+  --color-neutral-200: #f8f9fa;
+  --color-neutral-100: #ffffff;
 }
 
 :root {
@@ -68,11 +85,14 @@
   --chart-3: oklch(0.398 0.07 227.392);
   --chart-4: oklch(0.828 0.189 84.429);
   --chart-5: oklch(0.769 0.188 70.08);
-  --sidebar: oklch(0.985 0 0);
+  /* oklch(0.985 0 0) */
+  /* --sidebar: oklch(94.82% 0.0034446469332039655 247.8595209307); */
+  --sidebar: oklch(96.26% 0.006647434447073504 286.27409787142045);
+  /* --sidebar: #fffff; */
   --sidebar-foreground: oklch(0.145 0 0);
   --sidebar-primary: oklch(0.205 0 0);
   --sidebar-primary-foreground: oklch(0.985 0 0);
-  --sidebar-accent: oklch(0.97 0 0);
+  --sidebar-accent: #f6f7f9;
   --sidebar-accent-foreground: oklch(0.205 0 0);
   --sidebar-border: oklch(0.922 0 0);
   --sidebar-ring: oklch(0.708 0 0);
@@ -120,3 +140,33 @@
     @apply bg-background text-foreground;
   }
 }
+
+textarea::-webkit-resizer {
+  display: none;
+}
+
+textarea::-moz-resizer {
+  display: none;
+}
+
+.hide-scrollbar {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  overflow: -moz-scrollbars-none;
+}
+.hide-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+/* Override for SidebarInset margins */
+/* [data-slot='sidebar-inset'] {
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+@media (min-width: 768px) {
+  [data-slot='sidebar-inset'][class*='peer-data-[variant=inset]'] {
+    margin: 0 !important;
+    margin-left: 0 !important;
+  }
+} */

@@ -30,7 +30,7 @@ export default function RootLayout({
       lang='en'
       className={cn(
         fonts,
-        'scroll-smooth antialiased touch-manipulation select-none'
+        'scroll-smooth antialiased touch-manipulation select-none font-openrunde'
       )}
       suppressHydrationWarning
     >
